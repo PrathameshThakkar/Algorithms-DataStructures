@@ -141,5 +141,27 @@ public class MinHeap<T extends Comparable<T>> {
 		}
 		 System.out.println("");
 	 }
+	 
+	 public boolean isMinHeap() {
+		 
+		 if(heap==null || heap.size()==0) return true;
+		 		 
+		 return isMinHeapHelper(0);
+		 
+	 }
+	 
+	 private boolean isMinHeapHelper(int root) {
+		 
+		 if(root>=heap.size()) return true;
+		 		 
+		 int left = 2*root+1;
+		 int right = 2*root+2;
+		 
+		 if(left<heap.size() && smallest(root,left)==left) return false;
+		 
+		 if(right<heap.size() && smallest(root,right)==right) return false;
+		 
+		 return isMinHeapHelper(left) && isMinHeapHelper(right);
+	 }
 
 }
