@@ -3,22 +3,32 @@ package algorithms;
 public class Algorithms {
 	public static void main(String[] args) {
 		
-		MinHeapImproved<Integer> m= new MinHeapImproved<Integer>();
+		BinarySearchTree<Integer> b = new BinarySearchTree<Integer>();
 		
-		m.add(10);
-		m.add(1);
-		m.add(4);
-		m.add(-4);
-		m.add(90);
-		m.add(1);
-		m.add(109);
-		m.add(10);
-		
-		m.poll();
-		m.poll();
+		b.add(10);
+		b.add(8);
+		b.add(9);
+		b.add(11);
+		b.add(13);
+		b.add(2);
+		b.add(3);
+		b.add(0);
+		b.add(15);
 		
 		
-		System.out.println(m.isMinHeap());
+		b.inorder();
+		
+		System.out.println("");
+		
+		b.preorder();
+		
+		System.out.println("");
 
+		b.postorder();
+		
+		System.out.println("");
+
+		b.levelOrder();
+		
 	}
 }
