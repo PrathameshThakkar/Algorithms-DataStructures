@@ -26,7 +26,7 @@ int result = 0;
             }
             right++;
             
-        }
+         }
                
         result = Math.max(result,right-left);
         System.out.println(result);   
