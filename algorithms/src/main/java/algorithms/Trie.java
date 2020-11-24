@@ -6,7 +6,6 @@ import java.util.Map;
 public class Trie {
 	
 	class Node  {
-		
 		public char ch;
 		
 		public int content;

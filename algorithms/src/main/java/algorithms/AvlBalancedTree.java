@@ -15,7 +15,6 @@ public class AvlBalancedTree<T extends Comparable<T>> {
 		public Node(T value) {
 			this.value = value;
 		}
-		
 	}
 	
 	private Node root;

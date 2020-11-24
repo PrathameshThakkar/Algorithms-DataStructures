@@ -18,7 +18,6 @@ public class MinHeap<T extends Comparable<T>> {
 	 
 	 public int getSize() {
 		 if(heap == null) return 0;
-		 
 		 return heap.size();
 	 }
 	 
@@ -27,9 +26,7 @@ public class MinHeap<T extends Comparable<T>> {
 		 if(element == null) return;
 		 
 		 heap.add(element);
-				 
 		 int lastInsertedInd = heap.size()-1;
-		 
 		 swim(lastInsertedInd);
 		 
 		 stringifyHeap();
@@ -100,7 +97,7 @@ public class MinHeap<T extends Comparable<T>> {
 			 
 			 swap(index,smallestNode);	 			 
 			 index = smallestNode;
-		 }		 
+		 }
 		 
 	 }
 	 

@@ -1,50 +1,89 @@
 package algorithms;
 
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
+import java.util.Set;
+
+import javafx.util.Pair;
+import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+
 public class PlayGround {
 	
-	public void play() {
-		String[] words = {"a","b","c","d","d"};
-
-		int s = shortestDistance(words, "a", "d");
+	public void print(int[] arr) {
+		System.out.println(Arrays.toString(arr));
+	}
+	
+	int[] arr = {1,2,3};
+	List<LinkedList<Integer>> allSets = new ArrayList<LinkedList<Integer>>();
+	
+	
+	public PlayGround(){
 		
-		System.out.println(s);
 	}
 
-	public int shortestDistance(String[] words, String word1, String word2) {
-
-		int result = 0;
-
-		if (words == null || word1 == null || word2 == null) return result;
-
-		result = Integer.MAX_VALUE;
-		int left = 0;
-		int right = 0;
-
-		int n = words.length;
-
-		while (left < n && right < n) {
-
-			if (findWord(words, word1, word2, right) != null) {
-
-				if (findWord(words, word1, word2, left) != null && findWord(words, word1, word2, left) != findWord(words, word1, word2, right)) {
-					result = Math.min(Math.abs(right - left), result);
-					
-				} 
+	public void solve() {
+		
+		 generateSubsets(0,new LinkedList<Integer>());
+		 
+		 System.out.println(allSets);
+		
+	}
+	
+	 public void generateSubsets(int pos, LinkedList<Integer> subResult){
+		 if(pos == arr.length) {
+			 LinkedList<Integer> clone = (LinkedList<Integer>) subResult.clone();
+			 allSets.add(clone);
+			 return;
+		 }		
 				
-				left = right;
-			}
-
-			right++;
-
+		for(int i = pos; i<arr.length; i++) {
+			subResult.add(arr[i]);
+			generateSubsets(pos+1, subResult);
+			subResult.removeLast();
 		}
-
-		return result;
-
-	}
-
-	public String findWord(String[] words, String word1, String word2, int index) {
-		if (words[index].equals(word1) || words[index].equals(word2)) return words[index];
-		return null;
-	}
-
+	 }
+	
+	class unionfind{
+		
+		int[] nums;
+		int[] sizes;
+		
+		public unionfind(int size) {
+			nums = new int[size];
+			sizes = new int[size];
+			
+			for(int i =0; i< size; i++) {
+				nums[i] = i;
+				sizes[i] = 1;
+			}
+		}
+		
+		public int find(int i) {
+		  if(arr[i]!=i) {
+		  	arr[i] = find(arr[i]);
+		  }
+		 return i;
+	 }
+		
+		public void union(int i, int j) {
+			
+			int P_i =find(i);
+			int P_j =find(j);
+			
+			if(sizes[P_i]<sizes[P_j]) {
+				nums[P_i] = nums[P_j];
+				sizes[P_j] += sizes[P_i];
+			}else {
+				nums[P_j] = nums[P_i];
+				sizes[P_i] += sizes[P_j];
+			}
+		}
+  }
 }
+	
