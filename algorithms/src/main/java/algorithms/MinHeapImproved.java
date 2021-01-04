@@ -2,7 +2,6 @@ package algorithms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.TreeSet;
 
 public class MinHeapImproved<T extends Comparable<T>> {

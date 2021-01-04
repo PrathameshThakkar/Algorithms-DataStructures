@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import algorithms.graphs.HerpKarp_HalmiltonianCircuit_With_Bits;
+import java.util.HashMap;
 
 public class Algorithms {
 	
