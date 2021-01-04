@@ -28,7 +28,7 @@ public class CapacityScalingNetWorkFlow {
 		delta = Integer.highestOneBit(delta);
 		
 		for(delta=Integer.highestOneBit(delta); delta>0; delta/=2) {
-			 int bottleNeck = 0;
+			 int bottleNeck =0;
 			 
 			 do {
 				 bottleNeck = dfs(s,INF);
@@ -46,7 +46,7 @@ public class CapacityScalingNetWorkFlow {
 		visited[node] = visitedInd;
 		
 		for(Edge e : graph[node]) {
-			if(e.remainingFlow()>0 && visited[e.to]!=visitedInd) {
+			if(e.remainingFlow()>=delta && visited[e.to]!=visitedInd) {
 				int bottleNeck = dfs(e.to, Math.min(flow, e.remainingFlow()));
 				
 				if(bottleNeck >0) {

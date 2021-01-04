@@ -1,7 +1,7 @@
 package algorithms.graphs;
 
 import java.util.*;
-
+//Using a linkedList is far better
 public class EulerianPathCircuit {
 	
 	HashMap<Character, ArrayList<Character>> graph;
@@ -33,11 +33,12 @@ public class EulerianPathCircuit {
 		
 		while(out.get(node) > 0) {
 			
-			for(char to : graph.getOrDefault(node,new ArrayList<Character>())) {
+			   char to = graph.get(node).get(0);
+			   graph.get(node).remove(0);
 				 if(visited.get(to)) continue;
 				 out.put(node,out.get(node)-1);
 				 dfs(to);
-			}
+			
 		}
 		path.add(node);
 		visited.put(node,true);

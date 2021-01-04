@@ -1,7 +1,7 @@
+//Direct Acyclic Graph (DAG) with negative cycle detection
 package algorithms.graphs;
 
 import java.util.*;
-
 public class BellFordman {
 	
 	 ArrayList<ArrayList<Character>> data = new ArrayList<ArrayList<Character>>() {{

@@ -93,7 +93,7 @@ public class MinHeap<T extends Comparable<T>> {
 			 
 			 if(right<heap.size() && smallest(left, right)==right) smallestNode=right;
 			
-			 if(left>=heap.size() || smallest(left,index)==index) return;
+			 if(smallestNode>=heap.size() || smallest(smallestNode,index)==index) return;
 			 
 			 swap(index,smallestNode);	 			 
 			 index = smallestNode;

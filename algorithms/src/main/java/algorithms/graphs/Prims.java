@@ -33,14 +33,14 @@ public class Prims {
 		
 		while(!p.isEmpty() && edgeCount==N-1) {
 			
-			Edge bestCost = p.poll();
+			Edge bestCostEdge = p.poll();
 			
-			if(visited.get(bestCost.from)) continue;
+			if(visited.get(bestCostEdge.from)) continue;
 			
-			minSpanTree.add(bestCost);
-			minCost += bestCost.cost;
+			minSpanTree.add(bestCostEdge);
+			minCost += bestCostEdge.cost;
 			
-			addEdges(bestCost.to,p);
+			addEdges(bestCostEdge.to,p);
 			
 		}
 		

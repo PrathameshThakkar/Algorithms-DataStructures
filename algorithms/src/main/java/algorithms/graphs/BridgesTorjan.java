@@ -7,7 +7,6 @@ public class BridgesTorjan {
 	int n;
 	boolean[] visited;
 	int[] low,ids;
-	int rootNodeOutEdgesCount;
 	int index;
 	ArrayList<ArrayList<Integer>> bridges;
 

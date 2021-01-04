@@ -58,7 +58,6 @@ public class HerpKarp_HalmiltonianCircuit_With_Bits {
 		for(int next=1; next<N; next++) {
 			  memo[next][1<<S | 1<<next] = graph[S][next];
 		}
-		
 	}
 	
 	public void solve() {
@@ -70,15 +69,14 @@ public class HerpKarp_HalmiltonianCircuit_With_Bits {
 				if(notflipped(subset, S)) continue;
 				
 				for(int next=1; next<N; next++) {
-					if(next==S || notflipped(subset, next)) return;
+					if(next==S || notflipped(subset, next)) continue;
 					
 					int previousState = subset^(1<<next);
+					int mincost = Integer.MAX_VALUE;
 					
 					for(int end=1; end<N; end++) {
 						if(end==next || end== S  || notflipped(previousState, end)) continue;
-						
-						int mincost = Integer.MAX_VALUE;
-						
+												
 						int cost = memo[end][previousState]+graph[end][next];
 						
 						if(cost<mincost) {
@@ -86,6 +84,7 @@ public class HerpKarp_HalmiltonianCircuit_With_Bits {
 						}
 						
 					}
+					 memo[next][subset] = mincost;
 				}
 			}
 		}

@@ -20,70 +20,171 @@ public class PlayGround {
 	}
 	
 	int[] arr = {1,2,3};
+	int currMin = Integer.MAX_VALUE;
+	ArrayList<ArrayList<Character>> copy = new ArrayList<ArrayList<Character>>();
+
 	List<LinkedList<Integer>> allSets = new ArrayList<LinkedList<Integer>>();
 	
 	
-	public PlayGround(){
+	public void prin(char[][] arr) {
+		for(int i=0; i<arr.length; i++) {
+			 System.out.println("");
+			 for(int j=0; j<arr[0].length; j++) {
+				 System.out.print(arr[i][j]+" ");					 
+			 }
+			 System.out.println("");
+		 }
+}
+	
+	public void prin(ArrayList<ArrayList<Character>> arr) {
+		for(int i=0; i<arr.size(); i++) {
+			 System.out.println("");
+			 for(int j=0; j<arr.get(0).size(); j++) {
+				 System.out.print(arr.get(i).get(j)+" ");					 
+			 }
+			 System.out.println("");
+		 }
+}
+	
+	
+	public void solve(){
+		char[][] arr= {{'.','S','.','.'}, 
+				           {'.','#','#','.'},
+				           {'.','.','#','#'},
+									 {'.','E','.','.'}};
 		
-	}
-
-	public void solve() {
+		ArrayList<ArrayList<Character>> l = new ArrayList<ArrayList<Character>>();
 		
-		 generateSubsets(0,new LinkedList<Integer>());
-		 
-		 System.out.println(allSets);
+		for(int i=0; i<arr.length; i++) {
+			 l.add(new ArrayList<Character>());
+			 for(int j =0; j<arr.length; j++) {
+				 l.get(i).add(arr[i][j]);
+			 }
+		}
+		
+		
+		dfs(l,0,1,'E',0);
+		
+		//bfs(arr);
+		
+		prin(arr);
+		
+		//prin(copy);
+		
+//		if(dfs(arr,0,2,'E')) {
+//			 for(int i=0; i<arr.length; i++) {
+//				 System.out.println("");
+//				 for(int j=0; j<arr[0].length; j++) {
+//					 System.out.print(arr[i][j]+" ");					 
+//				 }
+//				 System.out.println("");
+//			 }
+//		}
 		
 	}
 	
-	 public void generateSubsets(int pos, LinkedList<Integer> subResult){
-		 if(pos == arr.length) {
-			 LinkedList<Integer> clone = (LinkedList<Integer>) subResult.clone();
-			 allSets.add(clone);
-			 return;
-		 }		
+	public void bfs(char[][] arr) {
+		
+		int C = arr[0].length;
+		int R = arr.length;
+		
+		boolean foundEnd = false;
+		
+		boolean[][] visited = new boolean[R][C];
+		HashMap<Integer,Integer> prev = new HashMap<Integer,Integer>();
+		int end = -1;
+		int[] dr = {0,0,-1,1};
+		int[] dc = {-1,1,0,0};
 				
-		for(int i = pos; i<arr.length; i++) {
-			subResult.add(arr[i]);
-			generateSubsets(pos+1, subResult);
-			subResult.removeLast();
-		}
-	 }
+		Queue<Integer> q = new LinkedList<Integer>();
+		
+	  q.add(0+1*C);
+	  visited[0][1] = true;
+	 	  
+	  while(!q.isEmpty()) {
+	  	
+	  	  int curr = q.poll();
+	  	  int r = curr%C;
+	  	  int c = curr/C;
+	  	  
+	  	  if(arr[r][c] == 'E') {
+	  	  	foundEnd = true;
+	  	  	end = r+c*C;
+	  	  	break;
+	  	  }
+	  	  
+	  	  visited[r][c] = true;
+	  	  
+	  	  for(int i = 0; i<dr.length; i++) {
+	  	  	
+	  	  	int cr = r+dr[i];
+	  	  	int cc = c+dc[i];
+	  	  	
+	  	  	if(cr>=0 && cr<R && cc>=0 && cc<C && arr[cr][cc]!='#' && visited[cr][cc]==false) {
+	  	  		
+	  	  		prev.put(cr+cc*C,curr);
+	  	  		visited[cr][cc]=true;
+	  	  		q.add(cr+cc*C);
+	  	  		
+	  	  		if(arr[cr][cc] == 'E') {
+	  	  			foundEnd= true;
+	  	  			end = cr+cc*C;
+	  	  			break;
+	  	  		}
+	  	  	}
+	  	  }
+	  }
+	  
+	  if(!foundEnd) {
+	  	 System.out.println("Trapped");
+	  }else {
+	  	
+	  	 Integer curr = end;
+	  	 for(curr = prev.get(end); curr!=(0+1*C) ; curr = prev.get(curr)) {
+	  		 
+	  		 int r = curr%C;
+	  		 int c = curr/C;
+	  		 
+	  		 arr[r][c] = '*';
+	  		 
+	  	 }
+	  	
+	  }
+		
+	}
 	
-	class unionfind{
-		
-		int[] nums;
-		int[] sizes;
-		
-		public unionfind(int size) {
-			nums = new int[size];
-			sizes = new int[size];
-			
-			for(int i =0; i< size; i++) {
-				nums[i] = i;
-				sizes[i] = 1;
-			}
-		}
-		
-		public int find(int i) {
-		  if(arr[i]!=i) {
-		  	arr[i] = find(arr[i]);
+	public void dfs(ArrayList<ArrayList<Character>> arr, int r, int c, char end,int distance) {
+		  if(arr.get(r).get(c) == end) {
+		  	 return;
 		  }
-		 return i;
-	 }
-		
-		public void union(int i, int j) {
-			
-			int P_i =find(i);
-			int P_j =find(j);
-			
-			if(sizes[P_i]<sizes[P_j]) {
-				nums[P_i] = nums[P_j];
-				sizes[P_j] += sizes[P_i];
-			}else {
-				nums[P_j] = nums[P_i];
-				sizes[P_i] += sizes[P_j];
-			}
-		}
-  }
+		  
+		  int[] dr = {0,0,-1,1};
+		  int[] dc = {-1,1,0,0};
+		  
+		  int R = arr.size();
+		  int C = arr.get(0).size();
+		  
+		  //boolean reachEnd = false;		  
+		  for(int i=0; i<dr.length; i++) {
+		  	int cr = r + dr[i];
+		  	int cc = c + dc[i];
+		  	
+		  	if(cr>=0 && cr<R && cc>=0 && cc<C) {
+		  		if(arr.get(cr).get(cc)=='.') {
+		  			 arr.get(cr).set(cc,'*');
+			  		 dfs(arr,cr,cc,end,distance+1);
+			  		 arr.get(cr).set(cc,'.');
+			  		
+		  		}else if(arr.get(cr).get(cc)==end) {
+		  			 
+		  			 if(distance<currMin) {
+		  				 copy = (ArrayList<ArrayList<Character>>)arr.clone();
+		  				 currMin = distance;
+		  			 }
+		  			 return;
+		  		}
+		  	}
+		  }	
+	}
 }
 	

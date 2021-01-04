@@ -82,7 +82,7 @@ public class Edmond_Karp {
 			for(Edge e : edgeList) {
 				if(e.remainingFow()>0 && visited[e.to]!=visitedInd) {
 					 q.add(e.to);
-					 prev[e.from] = e;
+					 prev[e.to] = e;
 					 visited[e.to] = visitedInd; 
 				}
 			}

@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.graphs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +62,6 @@ public class unionfind {
 		   private int componentSize;
 		   
 		   public UnionFindClass(int n) {
-		  	 
 		  	  size = new int[n];
 		  	  ids = new int[n];
 		  	  setComponentSize(n);
@@ -71,7 +70,6 @@ public class unionfind {
 		  	  	ids[i] = i;
 		  	  	size[i] = 1;
 		  	  }
-		  	  
 		   }
 		   
 		   public int[] getIds() {

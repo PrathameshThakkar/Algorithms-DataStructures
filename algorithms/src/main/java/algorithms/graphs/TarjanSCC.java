@@ -36,7 +36,6 @@ public class TarjanSCC {
   	   setUp();
   	   
   	   solveSCC();
-  	 
    }
    
    public void setUp() {

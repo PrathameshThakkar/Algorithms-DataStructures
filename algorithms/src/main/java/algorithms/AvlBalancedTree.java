@@ -174,13 +174,13 @@ public class AvlBalancedTree<T extends Comparable<T>> {
 				
 			}else {
 				 if(node.left.height>node.right.height) {
-					 Node SuccNode = findMax(node);
+					 Node SuccNode = findMax(node.left);
 					 node.value = SuccNode.value;
-					 node.right =  remove(node.right,SuccNode.value);
+					 node.left =  remove(node.left,SuccNode.value);
 				 }else {
 					 Node SuccNode = findMin(node);
 					 node.value = SuccNode.value;
-					 node.left = remove(node.left,SuccNode.value);
+					 node.right = remove(node.right,SuccNode.value);
 				 }
 			}
 		}
@@ -193,7 +193,7 @@ public class AvlBalancedTree<T extends Comparable<T>> {
 		while(node.left!=null) {
 			node = node.left;
 		}
-		return node.left;
+		return node;
 	}
 	
 	public Node findMax(Node node) {
@@ -201,7 +201,7 @@ public class AvlBalancedTree<T extends Comparable<T>> {
 			node = node.right;
 		}
 		
-		return node.right;
+		return node;
 	}
 	
 }

@@ -21,7 +21,7 @@ public class Algorithms {
 //		System.out.println(l);
 //		l.remove(2);
 //		System.out.println(l);
-		new PlayGround().solve();
+		//new PlayGround().solve();
     //new mergeSort();		
 		//new InsertionSort();
 		//new topologicalSort().doTopologicalSort();
@@ -31,7 +31,16 @@ public class Algorithms {
 		
 		///new unionfind().doUnionFind();
 		
-
+		ArrayList<String> l = new ArrayList<String>();
+		
+		l.add("JFK");
+		l.add("UFO");
+		
+		ArrayList<Integer> l1 = (ArrayList<Integer>) l.clone();
+		l.remove("JFK");
+		System.out.println(l);
+    
+		System.out.println(l1);
 		                      
 	}
 }
