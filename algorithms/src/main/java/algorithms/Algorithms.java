@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 import algorithms.graphs.HerpKarp_HalmiltonianCircuit_With_Bits;
 import java.util.HashMap;
 
-public class Algorithms {
+
+public class Algorithms{
 	
 	static void print(char[] arr) {
 		 for(char a: arr) System.out.print(a+" ");
 	}
-
+	
 	public static void main(String[] args) {
 		
-
-		
+			new PlayGround().solve();
+	}
+}
 		
 //		System.out.println(l);
 //		l.remove(2);
@@ -32,19 +35,21 @@ public class Algorithms {
 		
 		///new unionfind().doUnionFind();
 		
-		ArrayList<String> l = new ArrayList<String>();
-		
-		l.add("JFK");
-		l.add("UFO");
-		
-		ArrayList<Integer> l1 = (ArrayList<Integer>) l.clone();
-		l.remove("JFK");
-		System.out.println(l);
-    
-		System.out.println(l1);
-		                      
-	}
-}
+//		ArrayList<String> l = new ArrayList<String>();
+//		
+//		l.add("JFK");
+//		l.add("UFO");
+//		
+//		ArrayList<Integer> l1 = (ArrayList<Integer>) l.clone();
+//		l.remove("JFK");
+//		System.out.println(l);
+//    
+//		System.out.println(l1);
+//		
+//		TreeMap<Integer,Integer> map = new TreeMap<Integer,Integer>();
+//		                      
+//	}
+//}
 
 //char[] arr = {'e',' ',' ',' ','p','e','r','f','e','c','t',' ',' ',' ',' ','m','a','k','e','s',' ','p','r','a','c','t','i','c','e'};                   
 //

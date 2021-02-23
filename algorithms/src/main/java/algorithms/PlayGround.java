@@ -15,17 +15,17 @@ import java.util.LinkedList;
 
 public class PlayGround {
 	
+	int[] nums = {0,4,5,1,2,3,7,6};
+	int[] temp = new int[nums.length];
+	
+	char[][] arr= {{'.','S','.','.'}, 
+						     {'.','#','#','.'},
+						     {'.','.','#','#'},
+								 {'.','E','.','.'}};
+	
 	public void print(int[] arr) {
 		System.out.println(Arrays.toString(arr));
 	}
-	
-	int[] arr = {1,2,3};
-	int currMin = Integer.MAX_VALUE;
-	ArrayList<ArrayList<Character>> copy = new ArrayList<ArrayList<Character>>();
-
-	List<LinkedList<Integer>> allSets = new ArrayList<LinkedList<Integer>>();
-	
-	
 	public void prin(char[][] arr) {
 		for(int i=0; i<arr.length; i++) {
 			 System.out.println("");
@@ -44,147 +44,74 @@ public class PlayGround {
 			 }
 			 System.out.println("");
 		 }
-}
+ }
 	
+	int R = arr.length;
+	int C = arr[0].length;
+	int[][] dr = {{0,1},{1,0},{-1,0},{0,-1}};
+	HashSet<Point> visited = new HashSet<Point>();
+	int endRow, endCol;
 	
 	public void solve(){
-		char[][] arr= {{'.','S','.','.'}, 
-				           {'.','#','#','.'},
-				           {'.','.','#','#'},
-									 {'.','E','.','.'}};
 		
-		ArrayList<ArrayList<Character>> l = new ArrayList<ArrayList<Character>>();
+		Queue<Point> q = new LinkedList<Point>();
 		
-		for(int i=0; i<arr.length; i++) {
-			 l.add(new ArrayList<Character>());
-			 for(int j =0; j<arr.length; j++) {
-				 l.get(i).add(arr[i][j]);
-			 }
+		Point start = new Point(0,1);
+		
+		q.add(start);
+		
+		visited.add(start);
+		
+		int level = 0;
+		
+		while(!q.isEmpty()) {
+			
+			int size = q.size();
+			
+			for(int i=0; i<size; i++) {
+				
+				Point p = q.poll();
+				
+				if(p.row == endRow && p.col == endCol) {
+					System.out.println(level);
+					return;
+				}
+				
+				for(int j=0; j<dr.length; j++) {
+					
+					int cr = p.row + dr[j][0];
+					int cc = p.col + dr[j][1];
+					
+					if(cr>=0 && cr<R && cc>=0 && cc<C && arr[cr][cc]!='#' && !visited.contains(new Point(cr,cc))) {
+						
+						if(cr == endRow && cc == endCol) {
+							System.out.println(level+1);
+							return;
+						}
+						
+						q.add(new Point(cr,cc));
+						visited.add(new Point(cr,cc));
+					}
+				}
+			}
+			level++;
+		}
+	}
+	
+	class Point{
+		int row;
+		int col;
+		
+		Point(int row, int col) {
+			this.row = row;
+			this.col = col;
 		}
 		
-		
-		dfs(l,0,1,'E',0);
-		
-		//bfs(arr);
-		
-		prin(arr);
-		
-		//prin(copy);
-		
-//		if(dfs(arr,0,2,'E')) {
-//			 for(int i=0; i<arr.length; i++) {
-//				 System.out.println("");
-//				 for(int j=0; j<arr[0].length; j++) {
-//					 System.out.print(arr[i][j]+" ");					 
-//				 }
-//				 System.out.println("");
-//			 }
-//		}
-		
+		public boolean equals(Point p) {
+			if(!(p instanceof Point) || p==null) return false;
+			return this.row == p.row && this.col==p.col;
+		}
 	}
-	
-	public void bfs(char[][] arr) {
-		
-		int C = arr[0].length;
-		int R = arr.length;
-		
-		boolean foundEnd = false;
-		
-		boolean[][] visited = new boolean[R][C];
-		HashMap<Integer,Integer> prev = new HashMap<Integer,Integer>();
-		int end = -1;
-		int[] dr = {0,0,-1,1};
-		int[] dc = {-1,1,0,0};
-				
-		Queue<Integer> q = new LinkedList<Integer>();
-		
-	  q.add(0+1*C);
-	  visited[0][1] = true;
-	 	  
-	  while(!q.isEmpty()) {
-	  	
-	  	  int curr = q.poll();
-	  	  int r = curr%C;
-	  	  int c = curr/C;
-	  	  
-	  	  if(arr[r][c] == 'E') {
-	  	  	foundEnd = true;
-	  	  	end = r+c*C;
-	  	  	break;
-	  	  }
-	  	  
-	  	  visited[r][c] = true;
-	  	  
-	  	  for(int i = 0; i<dr.length; i++) {
-	  	  	
-	  	  	int cr = r+dr[i];
-	  	  	int cc = c+dc[i];
-	  	  	
-	  	  	if(cr>=0 && cr<R && cc>=0 && cc<C && arr[cr][cc]!='#' && visited[cr][cc]==false) {
-	  	  		
-	  	  		prev.put(cr+cc*C,curr);
-	  	  		visited[cr][cc]=true;
-	  	  		q.add(cr+cc*C);
-	  	  		
-	  	  		if(arr[cr][cc] == 'E') {
-	  	  			foundEnd= true;
-	  	  			end = cr+cc*C;
-	  	  			break;
-	  	  		}
-	  	  	}
-	  	  }
-	  }
-	  
-	  if(!foundEnd) {
-	  	 System.out.println("Trapped");
-	  }else {
-	  	
-	  	 Integer curr = end;
-	  	 for(curr = prev.get(end); curr!=(0+1*C) ; curr = prev.get(curr)) {
-	  		 
-	  		 int r = curr%C;
-	  		 int c = curr/C;
-	  		 
-	  		 arr[r][c] = '*';
-	  		 
-	  	 }
-	  	
-	  }
-		
-	}
-	
-	public void dfs(ArrayList<ArrayList<Character>> arr, int r, int c, char end,int distance) {
-		  if(arr.get(r).get(c) == end) {
-		  	 return;
-		  }
-		  
-		  int[] dr = {0,0,-1,1};
-		  int[] dc = {-1,1,0,0};
-		  
-		  int R = arr.size();
-		  int C = arr.get(0).size();
-		  
-		  //boolean reachEnd = false;		  
-		  for(int i=0; i<dr.length; i++) {
-		  	int cr = r + dr[i];
-		  	int cc = c + dc[i];
-		  	
-		  	if(cr>=0 && cr<R && cc>=0 && cc<C) {
-		  		if(arr.get(cr).get(cc)=='.') {
-		  			 arr.get(cr).set(cc,'*');
-			  		 dfs(arr,cr,cc,end,distance+1);
-			  		 arr.get(cr).set(cc,'.');
-			  		
-		  		}else if(arr.get(cr).get(cc)==end) {
-		  			 
-		  			 if(distance<currMin) {
-		  				 copy = (ArrayList<ArrayList<Character>>)arr.clone();
-		  				 currMin = distance;
-		  			 }
-		  			 return;
-		  		}
-		  	}
-		  }	
-	}
+
 }
 	
